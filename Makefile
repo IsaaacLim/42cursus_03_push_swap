@@ -9,7 +9,7 @@ HDRS_LST	=	push_swap.h
 HDRS		=	$(addprefix $(HDRS_DIR), $(HDRS_LST))
 
 LIBFT_DIR	=	./libft/
-LIBFT		=	libft.a
+LIBFT		=	$(LIBFT_DIR)libft.a
 LIBFT_HDRS	=	$(LIBFT_DIR)includes/
 
 INCLUDES	=	-I $(HDRS_DIR) -I $(LIBFT_HDRS)
