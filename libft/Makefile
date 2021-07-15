@@ -7,14 +7,13 @@ SRCS_OTH	=	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 			ft_split.c ft_strchr.c ft_strdup.c ft_strjoin.c ft_strlcat.c \
 			ft_strlcpy.c ft_strmapi.c ft_strncmp.c ft_strnstr.c \
 			ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c
-BONUS 	=	 ft_lstclear.c ft_lstdelone.c \
-			ft_lstiter.c  ft_lstmap.c  ft_lstsize.c
+BONUS 	=	ft_lstiter.c  ft_lstmap.c  ft_lstsize.c
 BOBJS	=	$(BONUS:.c=.o)
 
 SRCS_DIR	=	./sources/
-SRCS_LST	=	ft_lstadd_back.c ft_lstadd_front.c ft_lstlast.c ft_lstnew.c \
-				ft_putstr_fd.c ft_strlen.c
-SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LST))
+SRCS_LST	=	ft_lstadd_back.c ft_lstadd_front.c ft_lstlast.c ft_putstr_fd.c ft_strlen.c
+SRCS_B_LST	=	ft_lstclear_bonus.c ft_lstdelone_bonus.c ft_lstnew_bonus.c
+SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LST) $(SRCS_B_LST))
 
 OBJS		= 	$(SRCS:.c=.o)
 
