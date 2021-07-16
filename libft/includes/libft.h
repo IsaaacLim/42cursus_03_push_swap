@@ -16,7 +16,7 @@ void	*ft_calloc(size_t count, size_t size);
 // int		ft_isalnum(int c);
 // int		ft_isalpha(int c);
 // int		ft_isascii(int c);
-// int		ft_isdigit(int c);
+int		ft_isdigit(int c);
 // int		ft_isprint(int c);
 // char	*ft_itoa(int n);
 // void	*ft_memchr(const void *s, int c, size_t n);
