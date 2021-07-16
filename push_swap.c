@@ -91,13 +91,12 @@ bool	ft_check_input(char *argv, t_list *lst)
 	while (argv[i] >= '0' && argv[i] <= '9')
 		tot = tot * 10 + (argv[i++] - '0');
 	tot *= flag;
-	while (lst)
-	{
-		if (tot == lst->num || argv[i] || tot > INT_MAX || tot < INT_MIN)
-			return (false);
+	while (lst && tot != lst->num)
 		lst = lst->next;
-	}
-	return (true);
+	if (lst || argv[i] || tot > INT_MAX || tot < INT_MIN)
+		return (false);
+	else
+		return (true);
 }
 
 int	main(int argc, char **argv)
