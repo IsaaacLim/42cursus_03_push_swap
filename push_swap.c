@@ -11,6 +11,28 @@ void	ft_putlst(t_list *lst)
 	}
 }
 
+t_list	*ft_next(t_list *lst)
+{
+	if (!lst->next)
+		return (lst);
+	lst = lst->next;
+	return (lst);
+}
+
+void	ft_sort_swap(t_list **lst)
+{
+	t_list	*second;
+	t_list	*third;
+
+	if (!(lst && *lst && (*lst)->next))
+		return;
+	second = ft_next(*lst);
+	third = ((*lst)->next)->next;
+	(*lst)->next = third;
+	second->next = *lst;
+	*lst = second;
+}
+
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
@@ -41,6 +63,9 @@ int	main(int argc, char **argv)
 	ft_putchar_fd('\n', 1);
 	ft_putlst(stack_a);
 	ft_putchar_fd('\n', 1);
+	ft_sort_swap(&stack_a);
+	ft_putlst(stack_a);
+	ft_putchar_fd('\n', 1);
 	ft_lstclear(&stack_a);
-	free(stack_a);
+	// free(stack_a);
 }
