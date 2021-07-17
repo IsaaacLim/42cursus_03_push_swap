@@ -144,7 +144,6 @@ int	main(int argc, char **argv)
 	stack_a = NULL;
 	stack_b = NULL;
 	i = 0;
-	ft_putstr_fd("\nArgv:\t\t", 1);
 	while (argv[++i])
 	{
 		if (!(ft_check_input(argv[i], stack_a)))
@@ -154,30 +153,10 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 		new = ft_lstnew(ft_atoi(argv[i]));
-		ft_putnbr_fd(new->num, 1);
-		ft_putchar_fd(' ', 1);
 		ft_lstadd_back(&stack_a, new);
 	}
 	ft_putstr_fd("\nStack_a:\t", 1);
 	ft_putlst(stack_a);
-
-	// ft_sort_swap(&stack_a);
-	// ft_putstr_fd("\nsa:\t\t", 1);
-	// ft_putlst(stack_a);
-
-	// ft_sort_push(&stack_a, &stack_b);
-	// ft_putstr_fd("\npb_a:\t\t", 1);
-	// ft_putlst(stack_a);
-	// ft_putstr_fd("\npb_b:\t\t", 1);
-	// ft_putlst(stack_b);
-
-	// ft_sort_rotate(&stack_a);
-	// ft_putstr_fd("\nra:\t\t", 1);
-	// ft_putlst(stack_a);
-
-	// ft_sort_rotate_rev(&stack_a);
-	// ft_putstr_fd("\nrra:\t\t", 1);
-	// ft_putlst(stack_a);
 
 	if (ft_check_sorted(stack_a))
 		printf("\nSorted");
