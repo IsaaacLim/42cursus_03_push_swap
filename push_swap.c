@@ -40,49 +40,11 @@ bool	ft_check_input(char *argv, t_list *lst)
 		return (true);
 }
 
-void	ft_largest(t_list *lst, int *largest, int *largest_lst_pos)
-{
-	int lst_pos;
 
-	if (!lst)
-		return ;
-	*largest = lst->num;
-	*largest_lst_pos = 1;
-	lst = lst->next;
-	lst_pos = 2;
-	while (lst)
-	{
-		if (lst->num > *largest)
-		{
-			*largest = lst->num;
-			*largest_lst_pos = lst_pos; 
-		}
-		lst = lst->next;
-		lst_pos++;
-	}
-}
-
-
-
-void	ft_sort_xs(t_list **stack_a, t_list **stack_b)
-{
-	int largest;
-	int smallest_lst_pos;
-	int largest_lst_pos;
-
-	if (ft_is_sorted(*stack_a))
-		return ;
-	smallest_lst_pos = ft_smallest_lst_pos(*stack_a);
-	ft_largest(*stack_a, &largest, &largest_lst_pos);
-	if (largest_lst_pos == 1 && smallest_lst_pos == 2)
-		ft_sort("ra", stack_a, stack_b);
-	else if (largest_lst_pos == 2 && smallest_lst_pos == 3)
-		ft_sort("rra", stack_a, stack_b);
-	else
-		ft_sort("sa", stack_a, stack_b);
-	ft_sort_xs(stack_a, stack_b); 
-}
-
+/*
+** Find the number in stack_a where stack_b_top number should be placed before
+**	(it is next number bigger than stack_top_b number)
+*/
 int	ft_before_stack_a(t_list *stack_a, int stack_b_top)
 {
 	int		before_stack_a;
@@ -106,23 +68,12 @@ int	ft_before_stack_a(t_list *stack_a, int stack_b_top)
 	return (before_stack_a);
 }
 
-int	ft_lst_mid_position(t_list *stack_a)
-{
-	int lst_size;
-	int lst_mid;
 
-	lst_size = ft_lstsize(stack_a);
-	lst_mid = lst_size / 2;
-	if (lst_size % 2 != 0)
-		lst_mid += 1;
-	return (lst_mid);
-}
 
 void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 {
 	int	before_stack_a;
 	int lst_mid;
-	int	smallest;
 	int	smallest_lst_pos;
 
 	ft_sort("pb", stack_a, stack_b);
@@ -131,7 +82,7 @@ void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 	while (*stack_b)
 	{
 		before_stack_a = ft_before_stack_a(*stack_a, (*stack_b)->num);
-		lst_mid = ft_lst_mid_position(*stack_a);
+		lst_mid = ft_middle_lst_pos(*stack_a);
 		if ((*stack_a)->num == before_stack_a)
 			ft_sort("pa", stack_a, stack_b);
 		else if (before_stack_a <= lst_mid)
@@ -139,53 +90,15 @@ void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 		else if (before_stack_a > lst_mid)
 			ft_sort("rra", stack_a, stack_b);
 	}
-	smallest = ft_smallest(*stack_a);
 	smallest_lst_pos = ft_smallest_lst_pos(*stack_a);
-	lst_mid = ft_lst_mid_position(*stack_a);
-	while ((*stack_a)->num != smallest)
+	lst_mid = ft_middle_lst_pos(*stack_a);
+	while ((*stack_a)->num != ft_smallest(*stack_a))
 	{
 		if (smallest_lst_pos <= lst_mid)
 			ft_sort("ra", stack_a, stack_b);
 		else if (smallest_lst_pos > lst_mid)
 			ft_sort("rra", stack_a, stack_b);
 	}
-}
-
-void	ft_sort_insertion(t_list **stack_a, t_list **stack_b)
-{
-	int list_size;
-	int	smallest;
-	int smallest_lst_pos;
-	int lst_mid;
-
-	ft_putchar_fd('\n', 1);
-	while (*stack_a)
-	{
-		list_size = ft_lstsize(*stack_a);
-		// printf("\nStack_a size:\t%d", list_size);
-		// ft_putstr_fd("\nStack_a:\t", 1);
-		// ft_putlst(*stack_a);
-		smallest = ft_smallest(*stack_a);
-		// printf("\nStack_a largest:%d", largest);
-		// printf("\nStack_a s_pos:\t%d", smallest_lst_pos);
-		// printf("\nStack_a s_pos2:\t%d", ft_smallest_lst_pos(*stack_a));
-		smallest_lst_pos = ft_smallest_lst_pos(*stack_a);
-		lst_mid = list_size / 2;
-		if (list_size % 2 != 0)
-			lst_mid++;
-		while ((*stack_a)->num != smallest)
-		{
-			if ((*stack_a)->num > ((*stack_a)->next)->num)
-				ft_sort("sa", stack_a, stack_b);
-			else if (smallest_lst_pos <= lst_mid)
-				ft_sort("ra", stack_a, stack_b);
-			else if (smallest_lst_pos > lst_mid)
-				ft_sort("rra", stack_a, stack_b);
-		}
-		ft_sort("pb", stack_a, stack_b);
-	}
-	while (*stack_b)
-		ft_sort("pa", stack_a, stack_b);
 }
 
 int	main(int argc, char **argv)
@@ -223,7 +136,6 @@ int	main(int argc, char **argv)
 		else
 			ft_sort_insertion(&stack_a, &stack_b);
 	}
-	ft_putstr_fd("\nSort 1:", 1);
 	ft_putstr_fd("\nStack_a:\t", 1);
 	ft_putlst(stack_a);
 	ft_putstr_fd("\nStack_b:\t", 1);
