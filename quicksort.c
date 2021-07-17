@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "push_swap.h"
 
 void ft_swap(int *a, int *b)
 {
@@ -39,11 +39,11 @@ void ft_quicksort(int *a, int start, int end)
 	ft_quicksort(a, partitionIndex + 1, end);
 }
 
-int	main(void)
-{
-	int a[]= {7,2,1,6,8,5,3,4};
-	ft_quicksort(a, 0, 7);
-	for (int i = 0; i <=7 ; i++)
-		printf("%d ", a[i]);
-	printf("\n");
-}
+// int	main(void)
+// {
+// 	int a[]= {7,2,1,0,8,5,3,4};
+// 	ft_quicksort(a, 0, 7);
+// 	for (int i = 0; i <=7 ; i++)
+// 		printf("%d ", a[i]);
+// 	printf("\n");
+// }

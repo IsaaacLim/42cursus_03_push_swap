@@ -1,7 +1,7 @@
 #include "push_swap.h"
 
 /*
-** If numbers given are less than 3,
+** If numbers given <= 3,
 **	sort manually based on the 5 possible (max) combinations 
 */
 void	ft_sort_xs(t_list **stack_a, t_list **stack_b)
@@ -23,7 +23,7 @@ void	ft_sort_xs(t_list **stack_a, t_list **stack_b)
 }
 
 /*
-** If numbers given are more than 3 but less than 6,
+** If 4 <= numbers given <= 5,
 **	Push top 2 numbers from stack_a to stack_b
 **	Sort stack_a with ft_sort_xs
 **	Push stack_b top number to correct location in stack_a (ft_before_stack_a)
@@ -57,6 +57,140 @@ void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 		else if (ft_smallest_lst_pos(*stack_a) > lst_mid)
 			ft_sort("rra", stack_a, stack_b);
 	}
+}
+
+int	ft_chunk_max(t_list *stack_a, int chunk_size)
+{
+	int *array;
+	int	lst_size;
+	int	i;
+	int	chunk_max;
+
+	lst_size = ft_lstsize(stack_a);
+	array = (int *)malloc(lst_size * sizeof(int));
+	if (!array)
+	{
+		ft_putstr_fd("Error: ft_chunk_max\n", 2);
+		ft_lstclear(&stack_a);
+		exit (0);
+	}
+	i = 0;
+	while (stack_a)
+	{
+		array[i] = stack_a->num;
+		stack_a = stack_a->next;
+		i++;
+	}
+	ft_quicksort(array, 0, lst_size - 1);
+	chunk_max = array[chunk_size - 1];
+	printf("Sorted array:\t"); //remove
+	for (int j = 0; j < lst_size; j++) //remove
+		printf("%d ", array[j]); //remove
+	printf("\nChunk_max:\t%d\n", chunk_max); //remove
+	free(array);
+	return (chunk_max);
+}
+
+/*
+** Counts the position from the front
+** Count starts from 0
+** If none found, position == lst_size
+*/
+int	ft_chunk_top_pos(t_list *stack_a, int chunk_max)
+{
+	int	lst_size;
+	int	lst_mid;
+	int	chunk_top_pos;
+
+	lst_size = ft_lstsize(stack_a);
+	lst_mid = ft_middle_lst_pos(stack_a);
+	chunk_top_pos = 1;
+	while (chunk_top_pos <= lst_mid)
+	{
+		if (stack_a->num <= chunk_max)
+		{
+			printf("\nChunk_top:\t%d", stack_a->num); //remove
+			return (chunk_top_pos - 1);
+		}
+		stack_a = stack_a->next;
+		chunk_top_pos++;
+	}
+	return (lst_size);
+}
+
+/*
+** Counts the position from the back
+** Count starts from 1
+** If none found, position == lst_size
+*/
+int	ft_chunk_bot_pos(t_list *stack_a, int chunk_max)
+{
+	int lst_size;
+	int	lst_mid;
+	int	chunk_bot_pos;
+	int	pos;
+
+	lst_size = ft_lstsize(stack_a);
+	lst_mid = ft_middle_lst_pos(stack_a);
+	pos = 1;
+	while (pos <= lst_mid)
+	{
+		stack_a = stack_a->next;
+		pos++;
+	}
+	chunk_bot_pos = lst_size * 2 - 1;
+	int temp = stack_a->num; //remove
+	while (stack_a)
+	{
+		if (stack_a->num <= chunk_max)
+		{
+			chunk_bot_pos = pos;
+			temp = stack_a->num; //remove
+		}
+		stack_a = stack_a->next;
+		pos++;
+	}
+	printf("\nChunk_bot:\t%d", temp); //remove
+	return (lst_size - chunk_bot_pos + 1);
+}
+
+void	ft_push_from_top(t_list **stack_a, t_list **stack_b, int chunk_max)
+{
+	while ((*stack_a)->num > chunk_max)
+		ft_sort("ra", stack_a, stack_b);
+	ft_sort("pb", stack_a, stack_b);
+}
+
+void	ft_push_from_bottom(t_list **stack_a, t_list **stack_b, int chunk_max)
+{
+	while ((*stack_a)->num > chunk_max)
+		ft_sort("rra", stack_a, stack_b);
+	ft_sort("pb", stack_a, stack_b);
+}
+
+/*
+** If 6 <= numbers given <= 100
+*/ 
+void	ft_sort_m(t_list **stack_a, t_list **stack_b)
+{
+	int chunk_size;
+	int	chunk_max;
+	int	chunk_top_pos;
+	int	chunk_bot_pos;
+
+	(void) *stack_b;
+	chunk_size = ft_lstsize(*stack_a) / 5;
+	// if (chunk_size % 5 != 0)
+	// 	return ; //FIGURE THIS OUT
+	chunk_max = ft_chunk_max(*stack_a, chunk_size);
+	chunk_top_pos = ft_chunk_top_pos(*stack_a, chunk_max);
+	chunk_bot_pos = ft_chunk_bot_pos(*stack_a, chunk_max);
+	printf ("\nChunk_top_pos:\t%d", chunk_top_pos); //remove
+	printf ("\nChunk_bot_pos:\t%d\n", chunk_bot_pos); //remove
+	if (chunk_top_pos <= chunk_bot_pos && chunk_top_pos < ft_lstsize(*stack_a))
+		ft_push_from_top(stack_a, stack_b, chunk_max);
+	else if (chunk_bot_pos <= chunk_top_pos && chunk_bot_pos < ft_lstsize(*stack_a))
+		ft_push_from_bottom(stack_a, stack_b, chunk_max);
 }
 
 /*

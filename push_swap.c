@@ -83,7 +83,7 @@ int	main(int argc, char **argv)
 	{
 		if (!(ft_check_input(argv[i], stack_a)))
 		{
-			ft_putstr_fd("\nError\n", 2);
+			ft_putstr_fd("Error\n", 2);
 			ft_lstclear(&stack_a);
 			return (0);
 		}
@@ -99,6 +99,8 @@ int	main(int argc, char **argv)
 			ft_sort_xs(&stack_a, &stack_b);
 		else if (ft_lstsize(stack_a) <= 5)
 			ft_sort_s(&stack_a, &stack_b);
+		else if (ft_lstsize(stack_a) <= 100)
+			ft_sort_m(&stack_a, &stack_b);
 		else
 			ft_sort_insertion(&stack_a, &stack_b);
 	}
