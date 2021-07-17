@@ -6,8 +6,8 @@
 */
 void	ft_sort_xs(t_list **stack_a, t_list **stack_b)
 {
-	int largest_lst_pos;
-	int smallest_lst_pos;
+	int	largest_lst_pos;
+	int	smallest_lst_pos;
 
 	if (ft_is_sorted(*stack_a))
 		return ;
@@ -19,7 +19,7 @@ void	ft_sort_xs(t_list **stack_a, t_list **stack_b)
 		ft_sort("rra", stack_a, stack_b);
 	else
 		ft_sort("sa", stack_a, stack_b);
-	ft_sort_xs(stack_a, stack_b); 
+	ft_sort_xs(stack_a, stack_b);
 }
 
 /*
@@ -33,8 +33,7 @@ void	ft_sort_xs(t_list **stack_a, t_list **stack_b)
 void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 {
 	int	before_stack_a;
-	int lst_mid;
-	int	smallest_lst_pos;
+	int	lst_mid;
 
 	ft_sort("pb", stack_a, stack_b);
 	ft_sort("pb", stack_a, stack_b);
@@ -50,13 +49,12 @@ void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 		else if (before_stack_a > lst_mid)
 			ft_sort("rra", stack_a, stack_b);
 	}
-	smallest_lst_pos = ft_smallest_lst_pos(*stack_a);
 	lst_mid = ft_middle_lst_pos(*stack_a);
 	while ((*stack_a)->num != ft_smallest(*stack_a))
 	{
-		if (smallest_lst_pos <= lst_mid)
+		if (ft_smallest_lst_pos(*stack_a) <= lst_mid)
 			ft_sort("ra", stack_a, stack_b);
-		else if (smallest_lst_pos > lst_mid)
+		else if (ft_smallest_lst_pos(*stack_a) > lst_mid)
 			ft_sort("rra", stack_a, stack_b);
 	}
 }
@@ -71,8 +69,8 @@ void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 void	ft_sort_insertion(t_list **stack_a, t_list **stack_b)
 {
 	int	smallest;
-	int smallest_lst_pos;
-	int lst_mid;
+	int	smallest_lst_pos;
+	int	lst_mid;
 
 	while (*stack_a)
 	{
