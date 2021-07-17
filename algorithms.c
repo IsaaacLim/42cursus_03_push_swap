@@ -109,7 +109,7 @@ int	ft_chunk_top_pos(t_list *stack_a, int chunk_max)
 	{
 		if (stack_a->num <= chunk_max)
 		{
-			printf("\nChunk_top:\t%d", stack_a->num); //remove
+			// printf("\nChunk_top:\t%d", stack_a->num); //remove
 			return (chunk_top_pos - 1);
 		}
 		stack_a = stack_a->next;
@@ -138,33 +138,63 @@ int	ft_chunk_bot_pos(t_list *stack_a, int chunk_max)
 		stack_a = stack_a->next;
 		pos++;
 	}
-	chunk_bot_pos = lst_size * 2 - 1;
-	int temp = stack_a->num; //remove
+	chunk_bot_pos = 1;
+	// int temp = stack_a->num; //remove
 	while (stack_a)
 	{
 		if (stack_a->num <= chunk_max)
 		{
 			chunk_bot_pos = pos;
-			temp = stack_a->num; //remove
+			// temp = stack_a->num; //remove
 		}
 		stack_a = stack_a->next;
 		pos++;
 	}
-	printf("\nChunk_bot:\t%d", temp); //remove
+	// printf("\nChunk_bot:\t%d", temp); //remove
 	return (lst_size - chunk_bot_pos + 1);
 }
 
 void	ft_push_from_top(t_list **stack_a, t_list **stack_b, int chunk_max)
 {
+	int lst_mid_b;
+	int	before_stack_b;
+
 	while ((*stack_a)->num > chunk_max)
 		ft_sort("ra", stack_a, stack_b);
+	if (*stack_b)
+	{
+		before_stack_b = ft_before_stack_a(*stack_b, (*stack_a)->num); //switched vars
+		lst_mid_b = ft_middle_lst_pos(*stack_b);
+		while ((*stack_b)->num != before_stack_b)
+		{
+			if (before_stack_b <= lst_mid_b)
+				ft_sort("rb", stack_a, stack_b);
+			else if (before_stack_b > lst_mid_b)
+				ft_sort("rrb", stack_a, stack_b);
+		}
+	}
 	ft_sort("pb", stack_a, stack_b);
 }
 
 void	ft_push_from_bottom(t_list **stack_a, t_list **stack_b, int chunk_max)
 {
+	int lst_mid_b;
+	int	before_stack_b;
+
 	while ((*stack_a)->num > chunk_max)
 		ft_sort("rra", stack_a, stack_b);
+	if (*stack_b) //gotta check that this works
+	{
+		before_stack_b = ft_before_stack_a(*stack_b, (*stack_a)->num); //switched vars
+		lst_mid_b = ft_middle_lst_pos(*stack_b);
+		while ((*stack_b)->num != before_stack_b)
+		{
+			if (before_stack_b <= lst_mid_b)
+				ft_sort("rb", stack_a, stack_b);
+			else if (before_stack_b > lst_mid_b)
+				ft_sort("rrb", stack_a, stack_b);
+		}
+	}
 	ft_sort("pb", stack_a, stack_b);
 }
 
@@ -177,20 +207,29 @@ void	ft_sort_m(t_list **stack_a, t_list **stack_b)
 	int	chunk_max;
 	int	chunk_top_pos;
 	int	chunk_bot_pos;
+	int	count;
 
-	(void) *stack_b;
 	chunk_size = ft_lstsize(*stack_a) / 5;
 	// if (chunk_size % 5 != 0)
 	// 	return ; //FIGURE THIS OUT
-	chunk_max = ft_chunk_max(*stack_a, chunk_size);
-	chunk_top_pos = ft_chunk_top_pos(*stack_a, chunk_max);
-	chunk_bot_pos = ft_chunk_bot_pos(*stack_a, chunk_max);
-	printf ("\nChunk_top_pos:\t%d", chunk_top_pos); //remove
-	printf ("\nChunk_bot_pos:\t%d\n", chunk_bot_pos); //remove
-	if (chunk_top_pos <= chunk_bot_pos && chunk_top_pos < ft_lstsize(*stack_a))
-		ft_push_from_top(stack_a, stack_b, chunk_max);
-	else if (chunk_bot_pos <= chunk_top_pos && chunk_bot_pos < ft_lstsize(*stack_a))
-		ft_push_from_bottom(stack_a, stack_b, chunk_max);
+	while (ft_lstsize(*stack_a) > 3)
+	{	
+		count = chunk_size;
+		chunk_max = ft_chunk_max(*stack_a, chunk_size);
+		while (--count >= 0 && ft_lstsize(*stack_a) > 3)
+		{
+			chunk_top_pos = ft_chunk_top_pos(*stack_a, chunk_max);
+			chunk_bot_pos = ft_chunk_bot_pos(*stack_a, chunk_max);
+			// printf ("\nChunk_top_pos:\t%d", chunk_top_pos); //remove
+			// printf ("\nChunk_bot_pos:\t%d\n", chunk_bot_pos); //remove
+			// printf ("\nList_size:\t%d\n", ft_lstsize(*stack_a)); //remove
+			if (chunk_top_pos <= chunk_bot_pos && chunk_top_pos < ft_lstsize(*stack_a))
+				ft_push_from_top(stack_a, stack_b, chunk_max);
+			else if (chunk_bot_pos <= chunk_top_pos && chunk_bot_pos < ft_lstsize(*stack_a))
+				ft_push_from_bottom(stack_a, stack_b, chunk_max);
+		}
+	}
+	ft_sort_xs(stack_a, stack_b);
 }
 
 /*
