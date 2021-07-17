@@ -86,7 +86,7 @@ void	ft_smallest(t_list *lst, int *smallest, int *smallest_lst_pos)
 	}
 }
 
-void	ft_sort_1(t_list **stack_a, t_list **stack_b)
+void	ft_sort_insertion(t_list **stack_a, t_list **stack_b)
 {
 	int list_size;
 	int	largest;
@@ -122,6 +122,16 @@ void	ft_sort_1(t_list **stack_a, t_list **stack_b)
 		ft_sort("pa", stack_a, stack_b);
 }
 
+bool	ft_check_sorted(t_list *lst)
+{
+	while (lst && lst->next)
+	{
+		if (lst->num > (lst->next)->num)
+			return (false);
+		lst = lst->next;
+	}
+	return (true);
+}
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
@@ -169,7 +179,9 @@ int	main(int argc, char **argv)
 	// ft_putstr_fd("\nrra:\t\t", 1);
 	// ft_putlst(stack_a);
 
-	ft_sort_1(&stack_a, &stack_b);
+	if (ft_check_sorted(stack_a))
+		printf("\nSorted");
+	ft_sort_insertion(&stack_a, &stack_b);
 	ft_putstr_fd("\nSort 1:", 1);
 	ft_putstr_fd("\nStack_a:\t", 1);
 	ft_putlst(stack_a);
