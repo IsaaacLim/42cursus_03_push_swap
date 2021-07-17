@@ -7,6 +7,7 @@
 
 //algorithms.c
 void	ft_sort_xs(t_list **stack_a, t_list **stack_b);
+void	ft_sort_s(t_list **stack_a, t_list **stack_b);
 void	ft_sort_insertion(t_list **stack_a, t_list **stack_b);
 
 //ft_sort.c
@@ -23,6 +24,9 @@ int		ft_largest_lst_pos(t_list *lst);
 int		ft_smallest(t_list *lst);
 int		ft_smallest_lst_pos(t_list *lst);
 int		ft_middle_lst_pos(t_list *stack_a);
+
+//Unsure where to place
+int ft_before_stack_a(t_list *stack_a, int stack_b_top);
 
 //extra
 void	ft_putlst(t_list *lst);

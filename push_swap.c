@@ -40,10 +40,9 @@ bool	ft_check_input(char *argv, t_list *lst)
 		return (true);
 }
 
-
 /*
-** Find the number in stack_a where stack_b_top number should be placed before
-**	(it is next number bigger than stack_top_b number)
+** Find the number in stack_a where stack_b top number should be placed 
+**	on top of (it is next number bigger than stack_b top number)
 */
 int	ft_before_stack_a(t_list *stack_a, int stack_b_top)
 {
@@ -66,39 +65,6 @@ int	ft_before_stack_a(t_list *stack_a, int stack_b_top)
 	while (stack_a->num != stack_a_ori)
 		ft_sort_rotate_rev(&stack_a);
 	return (before_stack_a);
-}
-
-
-
-void	ft_sort_s(t_list **stack_a, t_list **stack_b)
-{
-	int	before_stack_a;
-	int lst_mid;
-	int	smallest_lst_pos;
-
-	ft_sort("pb", stack_a, stack_b);
-	ft_sort("pb", stack_a, stack_b);
-	ft_sort_xs(stack_a, stack_b);
-	while (*stack_b)
-	{
-		before_stack_a = ft_before_stack_a(*stack_a, (*stack_b)->num);
-		lst_mid = ft_middle_lst_pos(*stack_a);
-		if ((*stack_a)->num == before_stack_a)
-			ft_sort("pa", stack_a, stack_b);
-		else if (before_stack_a <= lst_mid)
-			ft_sort("ra", stack_a, stack_b);
-		else if (before_stack_a > lst_mid)
-			ft_sort("rra", stack_a, stack_b);
-	}
-	smallest_lst_pos = ft_smallest_lst_pos(*stack_a);
-	lst_mid = ft_middle_lst_pos(*stack_a);
-	while ((*stack_a)->num != ft_smallest(*stack_a))
-	{
-		if (smallest_lst_pos <= lst_mid)
-			ft_sort("ra", stack_a, stack_b);
-		else if (smallest_lst_pos > lst_mid)
-			ft_sort("rra", stack_a, stack_b);
-	}
 }
 
 int	main(int argc, char **argv)
