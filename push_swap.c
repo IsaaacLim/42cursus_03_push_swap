@@ -1,8 +1,6 @@
 #include "push_swap.h"
 #include "libft.h"
-#include "stdbool.h"
 #include "limits.h"
-#include <stdio.h> //REMOVE
 
 void	ft_putlst(t_list *lst)
 {
@@ -64,49 +62,17 @@ void	ft_largest(t_list *lst, int *largest, int *largest_lst_pos)
 	}
 }
 
-void	ft_smallest(t_list *lst, int *smallest, int *smallest_lst_pos)
-{
-	int lst_pos;
 
-	if (!lst)
-		return ;
-	*smallest = lst->num;
-	*smallest_lst_pos = 1;
-	lst = lst->next;
-	lst_pos = 2;
-	while (lst)
-	{
-		if (lst->num < *smallest)
-		{
-			*smallest = lst->num;
-			*smallest_lst_pos = lst_pos; 
-		}
-		lst = lst->next;
-		lst_pos++;
-	}
-}
-
-bool	ft_is_sorted(t_list *lst)
-{
-	while (lst && lst->next)
-	{
-		if (lst->num > (lst->next)->num)
-			return (false);
-		lst = lst->next;
-	}
-	return (true);
-}
 
 void	ft_sort_xs(t_list **stack_a, t_list **stack_b)
 {
-	int smallest;
 	int largest;
 	int smallest_lst_pos;
 	int largest_lst_pos;
 
 	if (ft_is_sorted(*stack_a))
 		return ;
-	ft_smallest(*stack_a, &smallest, &smallest_lst_pos);
+	smallest_lst_pos = ft_smallest_lst_pos(*stack_a);
 	ft_largest(*stack_a, &largest, &largest_lst_pos);
 	if (largest_lst_pos == 1 && smallest_lst_pos == 2)
 		ft_sort("ra", stack_a, stack_b);
@@ -121,12 +87,11 @@ int	ft_before_stack_a(t_list *stack_a, int stack_b_top)
 {
 	int		before_stack_a;
 	int		smallest;
-	int		smallest_lst_pos;
 	int		stack_a_ori;
 	t_list	*temp;
 	
 	stack_a_ori = stack_a->num;
-	ft_smallest(stack_a, &smallest, &smallest_lst_pos);
+	smallest = ft_smallest(stack_a);
 	while (stack_a->num != smallest)
 		ft_sort_rotate(&stack_a);
 	temp = stack_a;
@@ -138,21 +103,6 @@ int	ft_before_stack_a(t_list *stack_a, int stack_b_top)
 		before_stack_a = smallest;
 	while (stack_a->num != stack_a_ori)
 		ft_sort_rotate_rev(&stack_a);
-	
-	// while (temp->num != smallest)
-		// ft_sort_rotate(&temp);
-	// ft_putlst(stack_a);
-	// ft_putlst(temp);
-	// printf("temp memory: %p\n", temp);
-	// printf("SA memory: %p\n", stack_a);
-	// ft_putchar_fd('\n', 1);
-	// temp = temp.next;
-	// while (temp && stack_b_top > temp->num)
-	// 	temp = temp->next;
-	// if (temp)
-		// before_stack_a = temp->num;
-	// else
-	// 	before_stack_a = smallest;
 	return (before_stack_a);
 }
 
@@ -189,7 +139,8 @@ void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 		else if (before_stack_a > lst_mid)
 			ft_sort("rra", stack_a, stack_b);
 	}
-	ft_smallest(*stack_a, &smallest, &smallest_lst_pos);
+	smallest = ft_smallest(*stack_a);
+	smallest_lst_pos = ft_smallest_lst_pos(*stack_a);
 	lst_mid = ft_lst_mid_position(*stack_a);
 	while ((*stack_a)->num != smallest)
 	{
@@ -203,8 +154,6 @@ void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 void	ft_sort_insertion(t_list **stack_a, t_list **stack_b)
 {
 	int list_size;
-	int	largest;
-	int largest_lst_pos;
 	int	smallest;
 	int smallest_lst_pos;
 	int lst_mid;
@@ -214,10 +163,13 @@ void	ft_sort_insertion(t_list **stack_a, t_list **stack_b)
 	{
 		list_size = ft_lstsize(*stack_a);
 		// printf("\nStack_a size:\t%d", list_size);
-		ft_largest(*stack_a, &largest, &largest_lst_pos);
-		ft_smallest(*stack_a, &smallest, &smallest_lst_pos);
+		// ft_putstr_fd("\nStack_a:\t", 1);
+		// ft_putlst(*stack_a);
+		smallest = ft_smallest(*stack_a);
 		// printf("\nStack_a largest:%d", largest);
-		// printf("\nStack_a L_pos:\t%d", largest_lst_pos);
+		// printf("\nStack_a s_pos:\t%d", smallest_lst_pos);
+		// printf("\nStack_a s_pos2:\t%d", ft_smallest_lst_pos(*stack_a));
+		smallest_lst_pos = ft_smallest_lst_pos(*stack_a);
 		lst_mid = list_size / 2;
 		if (list_size % 2 != 0)
 			lst_mid++;
