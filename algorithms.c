@@ -83,10 +83,10 @@ int	ft_chunk_max(t_list *stack_a, int chunk_size)
 	}
 	ft_quicksort(array, 0, lst_size - 1);
 	chunk_max = array[chunk_size - 1];
-	printf("Sorted array:\t"); //remove
-	for (int j = 0; j < lst_size; j++) //remove
-		printf("%d ", array[j]); //remove
-	printf("\nChunk_max:\t%d\n", chunk_max); //remove
+	// printf("Sorted array:\t"); //remove
+	// for (int j = 0; j < lst_size; j++) //remove
+	// 	printf("%d ", array[j]); //remove
+	// printf("\nChunk_max:\t%d\n", chunk_max); //remove
 	free(array);
 	return (chunk_max);
 }
@@ -157,19 +157,19 @@ int	ft_chunk_bot_pos(t_list *stack_a, int chunk_max)
 void	ft_push_from_top(t_list **stack_a, t_list **stack_b, int chunk_max)
 {
 	int lst_mid_b;
-	int	before_stack_b;
+	int	onTopOf_stack_b;
 
 	while ((*stack_a)->num > chunk_max)
 		ft_sort("ra", stack_a, stack_b);
 	if (*stack_b)
 	{
-		before_stack_b = ft_onTopOf_decending(*stack_b, (*stack_a)->num);
+		onTopOf_stack_b = ft_onTopOf_decending(*stack_b, (*stack_a)->num);
 		lst_mid_b = ft_middle_lst_pos(*stack_b);
-		while ((*stack_b)->num != before_stack_b)
+		while ((*stack_b)->num != onTopOf_stack_b)
 		{
-			if (before_stack_b <= lst_mid_b)
+			if (onTopOf_stack_b <= lst_mid_b)
 				ft_sort("rb", stack_a, stack_b);
-			else if (before_stack_b > lst_mid_b)
+			else if (onTopOf_stack_b > lst_mid_b)
 				ft_sort("rrb", stack_a, stack_b);
 		}
 	}
@@ -179,19 +179,19 @@ void	ft_push_from_top(t_list **stack_a, t_list **stack_b, int chunk_max)
 void	ft_push_from_bottom(t_list **stack_a, t_list **stack_b, int chunk_max)
 {
 	int lst_mid_b;
-	int	before_stack_b;
+	int	onTopOf_stack_b;
 
 	while ((*stack_a)->num > chunk_max)
 		ft_sort("rra", stack_a, stack_b);
 	if (*stack_b) //gotta check that this works
 	{
-		before_stack_b = ft_onTopOf_decending(*stack_b, (*stack_a)->num); 
+		onTopOf_stack_b = ft_onTopOf_decending(*stack_b, (*stack_a)->num); 
 		lst_mid_b = ft_middle_lst_pos(*stack_b);
-		while ((*stack_b)->num != before_stack_b)
+		while ((*stack_b)->num != onTopOf_stack_b)
 		{
-			if (before_stack_b <= lst_mid_b)
+			if (onTopOf_stack_b <= lst_mid_b)
 				ft_sort("rb", stack_a, stack_b);
-			else if (before_stack_b > lst_mid_b)
+			else if (onTopOf_stack_b > lst_mid_b)
 				ft_sort("rrb", stack_a, stack_b);
 		}
 	}
@@ -230,6 +230,32 @@ void	ft_sort_m(t_list **stack_a, t_list **stack_b)
 		}
 	}
 	ft_sort_xs(stack_a, stack_b);
+	int onTopOf_stack_a;
+	int	lst_mid_a;
+	while (*stack_b)
+	{
+		onTopOf_stack_a = ft_onTopOf_ascending(*stack_a, (*stack_b)->num); 
+		lst_mid_a = ft_middle_lst_pos(*stack_a);
+		while ((*stack_a)->num != onTopOf_stack_a)
+		{
+			if (onTopOf_stack_a <= lst_mid_a)
+				ft_sort("ra", stack_a, stack_b);
+			else if (onTopOf_stack_a > lst_mid_a)
+				ft_sort("rra", stack_a, stack_b);
+		}
+		ft_sort("pa", stack_a, stack_b);
+	}
+	int smallest;
+	smallest = ft_smallest(*stack_a);
+	lst_mid_a = ft_middle_lst_pos(*stack_a);
+	while ((*stack_a)->num != smallest)
+	{
+		if (smallest <= lst_mid_a)
+			ft_sort("ra", stack_a, stack_b);
+		else if (smallest > lst_mid_a)
+			ft_sort("rra", stack_a, stack_b);
+	}
+	
 }
 
 /*

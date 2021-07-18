@@ -127,7 +127,7 @@ int	main(int argc, char **argv)
 		else
 			ft_sort_insertion(&stack_a, &stack_b);
 	}
-	ft_putstr_fd("\nStack_a:\t", 1);
+	ft_putstr_fd("Stack_a:\t", 1);
 	ft_putlst(stack_a);
 	ft_putstr_fd("\nStack_b:\t", 1);
 	ft_putlst(stack_b);
