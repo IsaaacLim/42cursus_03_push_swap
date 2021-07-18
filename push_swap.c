@@ -118,13 +118,13 @@ int	main(int argc, char **argv)
 	ft_putchar_fd('\n', 1);
 	if (!(ft_is_sorted(stack_a)))
 	{
-		ft_sort_radix(&stack_a, &stack_b);
+		// ft_sort_radix(&stack_a, &stack_b);
 		// if (ft_lstsize(stack_a) <= 3)
 		// 	ft_sort_xs(&stack_a, &stack_b);
 		// else if (ft_lstsize(stack_a) <= 5)
 		// 	ft_sort_s(&stack_a, &stack_b);
 		// else if (ft_lstsize(stack_a) <= 100)
-			// ft_sort_m(&stack_a, &stack_b);
+			ft_sort_m(&stack_a, &stack_b);
 		// else
 			// ft_sort_insertion(&stack_a, &stack_b);
 	}

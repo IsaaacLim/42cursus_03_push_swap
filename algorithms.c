@@ -232,6 +232,14 @@ void	ft_sort_m(t_list **stack_a, t_list **stack_b)
 	ft_sort_xs(stack_a, stack_b);
 	int onTopOf_stack_a;
 	int	lst_mid_a;
+	// int smallest_b = ft_smallest(*stack_b);
+	// t_list *temp;
+	// temp = ft_lstlast(*stack_b);
+	// while (temp->num != smallest_b)
+	// {
+	// 	ft_sort("rrb", stack_a, stack_b);
+	// 	temp = ft_lstlast(*stack_b);
+	// }
 	while (*stack_b)
 	{
 		onTopOf_stack_a = ft_onTopOf_ascending(*stack_a, (*stack_b)->num); 
