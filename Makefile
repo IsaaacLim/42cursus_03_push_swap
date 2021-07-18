@@ -1,6 +1,7 @@
 NAME		=	push_swap
 
-SRCS		=	algorithms.c push_swap.c lst_evaluate.c ft_sort.c quicksort.c
+SRCS		=	algorithms.c push_swap.c lst_evaluate.c ft_sort.c quicksort.c\
+				ft_sort_radix.c
 
 OBJS		=	$(SRCS:.c=.o)
 

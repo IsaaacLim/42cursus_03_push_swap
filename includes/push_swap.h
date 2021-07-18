@@ -28,9 +28,11 @@ int		ft_middle_lst_pos(t_list *stack_a);
 
 //quicksort.c
 void ft_quicksort(int *a, int start, int end);
+
 //Unsure where to place
 int ft_onTopOf_ascending(t_list *lst_to, int num_from);
 int	ft_onTopOf_decending(t_list *lst_to, int num_from);
+void	ft_sort_radix(t_list **stack_a, t_list **stack_b);
 
 //extra
 void	ft_putlst(t_list *lst);
