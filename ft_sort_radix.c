@@ -62,7 +62,7 @@ void	ft_sort_radix(t_list **stack_a, t_list **stack_b)
 	while (i < max_bits)
 	{
 		j = 0;
-		while (j <= max_num && (*stack_a))
+		while (j <= max_num )
 		{
 			if ((((*stack_a)->num >> i) & 1) == 0)
 				ft_sort("pb", stack_a, stack_b);
