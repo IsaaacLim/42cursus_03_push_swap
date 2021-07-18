@@ -47,19 +47,39 @@ void	ft_substitudeNum(t_list **stack_a, int *array)
 void	ft_sort_radix(t_list **stack_a, t_list **stack_b)
 {
 	int *array;
+	int	max_num;
+	int	max_bits;
+	int i;
+	int j;
 
 	array = ft_copyStack(*stack_a);
 	ft_substitudeNum(stack_a, array);
+	max_num = ft_lstsize(*stack_a) - 1;
+	max_bits = 0;
+	while ((max_num >> max_bits) != 0)
+		max_bits++;
+	i = 0;
+	while (i < max_bits)
+	{
+		j = 0;
+		while (j <= max_num && (*stack_a))
+		{
+			if ((((*stack_a)->num >> i) & 1) == 0)
+				ft_sort("pb", stack_a, stack_b);
+			else
+				ft_sort("ra", stack_a, stack_b);
+			j++;
+		}
+		while (*stack_b)
+			ft_sort("pa", stack_a, stack_b);
+		i++;
+	}
 
-
-
-
-	printf("Stack copy:\t");
-	for (int g = 0; array[g]; g++)
-		printf("%d ", array[g]);
-	printf("\n");
+	// printf("Max_num:\t%d Max_bits: %d\n", max_num, max_bits);
+	// printf("Stack copy:\t");
+	// for (int g = 0; array[g]; g++)
+	// 	printf("%d ", array[g]);
+	// printf("\n");
 
 	free(array);
-
-	(void) stack_b;
 }
