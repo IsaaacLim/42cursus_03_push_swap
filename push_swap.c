@@ -67,6 +67,29 @@ int	ft_before_stack_a(t_list *stack_a, int stack_b_top)
 	return (before_stack_a);
 }
 
+int	ft_onTopOf_decending(t_list *lst_to, int num_from)
+{
+	int		onTopOf;
+	int		largest;
+	int		stack_ori;
+	t_list	*temp;
+	
+	stack_ori = lst_to->num;
+	largest = ft_largest(lst_to);
+	while (lst_to->num != largest)
+		ft_sort_rotate(&lst_to);
+	temp = lst_to;
+	while (temp && num_from < temp->num)
+		temp = temp->next;
+	if (temp)
+		onTopOf = temp->num;
+	else
+		onTopOf = largest;
+	while (lst_to->num != stack_ori)
+		ft_sort_rotate_rev(&lst_to);
+	return (onTopOf);
+}
+
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;

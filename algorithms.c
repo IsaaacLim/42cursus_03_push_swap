@@ -163,7 +163,7 @@ void	ft_push_from_top(t_list **stack_a, t_list **stack_b, int chunk_max)
 		ft_sort("ra", stack_a, stack_b);
 	if (*stack_b)
 	{
-		before_stack_b = ft_before_stack_a(*stack_b, (*stack_a)->num); //switched vars
+		before_stack_b = ft_onTopOf_decending(*stack_b, (*stack_a)->num);
 		lst_mid_b = ft_middle_lst_pos(*stack_b);
 		while ((*stack_b)->num != before_stack_b)
 		{
@@ -185,7 +185,7 @@ void	ft_push_from_bottom(t_list **stack_a, t_list **stack_b, int chunk_max)
 		ft_sort("rra", stack_a, stack_b);
 	if (*stack_b) //gotta check that this works
 	{
-		before_stack_b = ft_before_stack_a(*stack_b, (*stack_a)->num); //switched vars
+		before_stack_b = ft_onTopOf_decending(*stack_b, (*stack_a)->num); 
 		lst_mid_b = ft_middle_lst_pos(*stack_b);
 		while ((*stack_b)->num != before_stack_b)
 		{

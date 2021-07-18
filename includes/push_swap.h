@@ -30,6 +30,7 @@ int		ft_middle_lst_pos(t_list *stack_a);
 void ft_quicksort(int *a, int start, int end);
 //Unsure where to place
 int ft_before_stack_a(t_list *stack_a, int stack_b_top);
+int	ft_onTopOf_decending(t_list *lst_to, int num_from);
 
 //extra
 void	ft_putlst(t_list *lst);
