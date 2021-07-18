@@ -44,27 +44,27 @@ bool	ft_check_input(char *argv, t_list *lst)
 ** Find the number in stack_a where stack_b top number should be placed 
 **	on top of (it is next number bigger than stack_b top number)
 */
-int	ft_before_stack_a(t_list *stack_a, int stack_b_top)
+int	ft_onTopOf_ascending(t_list *lst_to, int num_from)
 {
-	int		before_stack_a;
+	int		onTopOf;
 	int		smallest;
-	int		stack_a_ori;
+	int		stack_ori;
 	t_list	*temp;
 	
-	stack_a_ori = stack_a->num;
-	smallest = ft_smallest(stack_a);
-	while (stack_a->num != smallest)
-		ft_sort_rotate(&stack_a);
-	temp = stack_a;
-	while (temp && stack_b_top > temp->num)
+	stack_ori = lst_to->num;
+	smallest = ft_smallest(lst_to);
+	while (lst_to->num != smallest)
+		ft_sort_rotate(&lst_to);
+	temp = lst_to;
+	while (temp && num_from > temp->num)
 		temp = temp->next;
 	if (temp)
-		before_stack_a = temp->num;
+		onTopOf = temp->num;
 	else
-		before_stack_a = smallest;
-	while (stack_a->num != stack_a_ori)
-		ft_sort_rotate_rev(&stack_a);
-	return (before_stack_a);
+		onTopOf = smallest;
+	while (lst_to->num != stack_ori)
+		ft_sort_rotate_rev(&lst_to);
+	return (onTopOf);
 }
 
 int	ft_onTopOf_decending(t_list *lst_to, int num_from)

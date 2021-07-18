@@ -26,7 +26,7 @@ void	ft_sort_xs(t_list **stack_a, t_list **stack_b)
 ** If 4 <= numbers given <= 5,
 **	Push top 2 numbers from stack_a to stack_b
 **	Sort stack_a with ft_sort_xs
-**	Push stack_b top number to correct location in stack_a (ft_before_stack_a)
+**	Push stack_b top number to correct location in stack_a (ft_onTopOf_ascending)
 **	Repeat once more for the remaining number in stack_b
 **	Rotate stack_a to an ascending order
 */
@@ -40,7 +40,7 @@ void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 	ft_sort_xs(stack_a, stack_b);
 	while (*stack_b)
 	{
-		before_stack_a = ft_before_stack_a(*stack_a, (*stack_b)->num);
+		before_stack_a = ft_onTopOf_ascending(*stack_a, (*stack_b)->num);
 		lst_mid = ft_middle_lst_pos(*stack_a);
 		if ((*stack_a)->num == before_stack_a)
 			ft_sort("pa", stack_a, stack_b);
