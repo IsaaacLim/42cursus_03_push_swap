@@ -59,241 +59,92 @@ void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 	}
 }
 
-int	ft_chunk_max(t_list *stack_a, int chunk_size)
+/*
+** Substitude numbers in stack
+**	Used ft_quicksort to get the order (ascending) of each number
+**	Replaced them with 0 -> Max_Number_Count
+*/
+static void	ft_substitudeNum(t_list **stack_a)
 {
-	int *array;
-	int	lst_size;
-	int	i;
-	int	chunk_max;
+	t_list	*head;
+	int		*array;
+	int		lst_size;
+	int		i;
 
-	lst_size = ft_lstsize(stack_a);
-	array = (int *)malloc(lst_size * sizeof(int));
-	if (!array)
-	{
-		ft_putstr_fd("Error: ft_chunk_max\n", 2);
-		ft_lstclear(&stack_a);
-		exit (0);
-	}
-	i = 0;
-	while (stack_a)
-	{
-		array[i] = stack_a->num;
-		stack_a = stack_a->next;
-		i++;
-	}
+	array = ft_copyStack(*stack_a);
+	lst_size = ft_lstsize(*stack_a);
 	ft_quicksort(array, 0, lst_size - 1);
-	chunk_max = array[chunk_size - 1];
-	// printf("Sorted array:\t"); //remove
-	// for (int j = 0; j < lst_size; j++) //remove
-	// 	printf("%d ", array[j]); //remove
-	// printf("\nChunk_max:\t%d\n", chunk_max); //remove
-	free(array);
-	return (chunk_max);
-}
-
-/*
-** Counts the position from the front
-** Count starts from 0
-** If none found, position == lst_size
-*/
-int	ft_chunk_top_pos(t_list *stack_a, int chunk_max)
-{
-	int	lst_size;
-	int	lst_mid;
-	int	chunk_top_pos;
-
-	lst_size = ft_lstsize(stack_a);
-	lst_mid = ft_middle_lst_pos(stack_a);
-	chunk_top_pos = 1;
-	while (chunk_top_pos <= lst_mid)
-	{
-		if (stack_a->num <= chunk_max)
-		{
-			// printf("\nChunk_top:\t%d", stack_a->num); //remove
-			return (chunk_top_pos - 1);
-		}
-		stack_a = stack_a->next;
-		chunk_top_pos++;
-	}
-	return (lst_size);
-}
-
-/*
-** Counts the position from the back
-** Count starts from 1
-** If none found, position == lst_size
-*/
-int	ft_chunk_bot_pos(t_list *stack_a, int chunk_max)
-{
-	int lst_size;
-	int	lst_mid;
-	int	chunk_bot_pos;
-	int	pos;
-
-	lst_size = ft_lstsize(stack_a);
-	lst_mid = ft_middle_lst_pos(stack_a);
-	pos = 1;
-	while (pos <= lst_mid)
-	{
-		stack_a = stack_a->next;
-		pos++;
-	}
-	chunk_bot_pos = 1;
-	// int temp = stack_a->num; //remove
-	while (stack_a)
-	{
-		if (stack_a->num <= chunk_max)
-		{
-			chunk_bot_pos = pos;
-			// temp = stack_a->num; //remove
-		}
-		stack_a = stack_a->next;
-		pos++;
-	}
-	// printf("\nChunk_bot:\t%d", temp); //remove
-	return (lst_size - chunk_bot_pos + 1);
-}
-
-void	ft_push_from_top(t_list **stack_a, t_list **stack_b, int chunk_max)
-{
-	int lst_mid_b;
-	int	onTopOf_stack_b;
-
-	while ((*stack_a)->num > chunk_max)
-		ft_sort("ra", stack_a, stack_b);
-	if (*stack_b)
-	{
-		onTopOf_stack_b = ft_onTopOf_decending(*stack_b, (*stack_a)->num);
-		lst_mid_b = ft_middle_lst_pos(*stack_b);
-		while ((*stack_b)->num != onTopOf_stack_b)
-		{
-			if (onTopOf_stack_b <= lst_mid_b)
-				ft_sort("rb", stack_a, stack_b);
-			else if (onTopOf_stack_b > lst_mid_b)
-				ft_sort("rrb", stack_a, stack_b);
-		}
-	}
-	ft_sort("pb", stack_a, stack_b);
-}
-
-void	ft_push_from_bottom(t_list **stack_a, t_list **stack_b, int chunk_max)
-{
-	int lst_mid_b;
-	int	onTopOf_stack_b;
-
-	while ((*stack_a)->num > chunk_max)
-		ft_sort("rra", stack_a, stack_b);
-	if (*stack_b) //gotta check that this works
-	{
-		onTopOf_stack_b = ft_onTopOf_decending(*stack_b, (*stack_a)->num); 
-		lst_mid_b = ft_middle_lst_pos(*stack_b);
-		while ((*stack_b)->num != onTopOf_stack_b)
-		{
-			if (onTopOf_stack_b <= lst_mid_b)
-				ft_sort("rb", stack_a, stack_b);
-			else if (onTopOf_stack_b > lst_mid_b)
-				ft_sort("rrb", stack_a, stack_b);
-		}
-	}
-	ft_sort("pb", stack_a, stack_b);
-}
-
-/*
-** If 6 <= numbers given <= 100
-*/ 
-void	ft_sort_m(t_list **stack_a, t_list **stack_b)
-{
-	int chunk_size;
-	int	chunk_max;
-	int	chunk_top_pos;
-	int	chunk_bot_pos;
-	int	count;
-
-	chunk_size = ft_lstsize(*stack_a) / 5;
-	// if (chunk_size % 5 != 0)
-	// 	return ; //FIGURE THIS OUT
-	while (ft_lstsize(*stack_a) > 3)
-	{	
-		count = chunk_size;
-		chunk_max = ft_chunk_max(*stack_a, chunk_size);
-		while (--count >= 0 && ft_lstsize(*stack_a) > 3)
-		{
-			chunk_top_pos = ft_chunk_top_pos(*stack_a, chunk_max);
-			chunk_bot_pos = ft_chunk_bot_pos(*stack_a, chunk_max);
-			// printf ("\nChunk_top_pos:\t%d", chunk_top_pos); //remove
-			// printf ("\nChunk_bot_pos:\t%d\n", chunk_bot_pos); //remove
-			// printf ("\nList_size:\t%d\n", ft_lstsize(*stack_a)); //remove
-			if (chunk_top_pos <= chunk_bot_pos && chunk_top_pos < ft_lstsize(*stack_a))
-				ft_push_from_top(stack_a, stack_b, chunk_max);
-			else if (chunk_bot_pos <= chunk_top_pos && chunk_bot_pos < ft_lstsize(*stack_a))
-				ft_push_from_bottom(stack_a, stack_b, chunk_max);
-		}
-	}
-	ft_sort_xs(stack_a, stack_b);
-	int onTopOf_stack_a;
-	int	lst_mid_a;
-	// int smallest_b = ft_smallest(*stack_b);
-	// t_list *temp;
-	// temp = ft_lstlast(*stack_b);
-	// while (temp->num != smallest_b)
-	// {
-	// 	ft_sort("rrb", stack_a, stack_b);
-	// 	temp = ft_lstlast(*stack_b);
-	// }
-	while (*stack_b)
-	{
-		onTopOf_stack_a = ft_onTopOf_ascending(*stack_a, (*stack_b)->num); 
-		lst_mid_a = ft_middle_lst_pos(*stack_a);
-		while ((*stack_a)->num != onTopOf_stack_a)
-		{
-			if (onTopOf_stack_a <= lst_mid_a)
-				ft_sort("ra", stack_a, stack_b);
-			else if (onTopOf_stack_a > lst_mid_a)
-				ft_sort("rra", stack_a, stack_b);
-		}
-		ft_sort("pa", stack_a, stack_b);
-	}
-	int smallest;
-	smallest = ft_smallest(*stack_a);
-	lst_mid_a = ft_middle_lst_pos(*stack_a);
-	while ((*stack_a)->num != smallest)
-	{
-		if (smallest <= lst_mid_a)
-			ft_sort("ra", stack_a, stack_b);
-		else if (smallest > lst_mid_a)
-			ft_sort("rra", stack_a, stack_b);
-	}
-	
-}
-
-/*
-** Mimics Insertion Sort
-**	Rotate smallest number in stack_a to the top
-**	Push stack_a number to stack_b
-**	Repeat until stack_a is empty
-**	Push stack_b back to stack_a until empty
-*/
-void	ft_sort_insertion(t_list **stack_a, t_list **stack_b)
-{
-	int	smallest;
-	int	smallest_lst_pos;
-	int	lst_mid;
-
+	head = *stack_a;
 	while (*stack_a)
 	{
-		smallest = ft_smallest(*stack_a);
-		smallest_lst_pos = ft_smallest_lst_pos(*stack_a);
-		lst_mid = ft_middle_lst_pos(*stack_a);
-		while ((*stack_a)->num != smallest)
+		i = 0;
+		while (i < lst_size && (*stack_a)->num != array[i])
+			i++;
+		(*stack_a)->num = i;
+		*stack_a = (*stack_a)->next;
+	}
+	*stack_a = head;
+	free(array);
+}
+
+/*
+** Radix Sort with base 2
+**	Mod: stack_b numbers that are going to be pushed back will remain there
+**	1. Substitude numbers in stack with 0 -> Max_Number_Count
+**	2. Find the number of bits of the biggest number (the list size - 1)
+**	3. Stack_a: Push numbers with bit '0' to stack_b at nth position
+**	4. Stack_b: Push numbers with bit '1' to stack_a at nth + 1 position
+**	5. Repeat Steps 3&4 while shifting the nth position to the left
+**		until the max number of bits (biggest number)
+**	6. Push all numbers from stack_b to stack_a
+*/
+static void	ft_push_stack(t_list **stack_a, t_list **stack_b, int i, char lst)
+{
+	int	lst_size;
+	int	j;
+
+	if (lst == 'a')
+		lst_size = ft_lstsize(*stack_a);
+	else if (lst == 'b')
+		lst_size = ft_lstsize(*stack_b);
+	j = -1;
+	while (++j < lst_size)
+	{
+		if (lst == 'a')
 		{
-			if ((*stack_a)->num > ((*stack_a)->next)->num)
-				ft_sort("sa", stack_a, stack_b);
-			else if (smallest_lst_pos <= lst_mid)
+			if ((((*stack_a)->num >> i) & 1) == 0)
+				ft_sort("pb", stack_a, stack_b);
+			else
 				ft_sort("ra", stack_a, stack_b);
-			else if (smallest_lst_pos > lst_mid)
-				ft_sort("rra", stack_a, stack_b);
 		}
-		ft_sort("pb", stack_a, stack_b);
+		else if (lst == 'b')
+		{
+			if ((((*stack_b)->num >> (i + 1)) & 1) == 1)
+				ft_sort("pa", stack_a, stack_b);
+			else
+				ft_sort("rb", stack_a, stack_b);
+		}
+	}
+}
+
+void	ft_sort_radix(t_list **stack_a, t_list **stack_b)
+{
+	int	max_num;
+	int	max_bits;
+	int	i;
+
+	ft_substitudeNum(stack_a);
+	max_num = ft_lstsize(*stack_a) - 1;
+	max_bits = 0;
+	while ((max_num >> max_bits) != 0)
+		max_bits++;
+	i = 0;
+	while (i < max_bits)
+	{
+		ft_push_stack(stack_a, stack_b, i, 'a');
+		if (i + 1 != max_bits)
+			ft_push_stack(stack_a, stack_b, i, 'b');
+		i++;
 	}
 	while (*stack_b)
 		ft_sort("pa", stack_a, stack_b);
