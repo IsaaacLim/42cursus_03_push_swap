@@ -61,20 +61,34 @@ void	ft_sort_swap(t_list **lst)
 
 void	ft_sort(char *sort, t_list **stack_a, t_list **stack_b)
 {
-	if (ft_strnstr("sa", sort, 2) || ft_strnstr("ss", sort, 2))
-		ft_sort_swap(stack_a);
+	// if (ft_strnstr("sa", sort, 2) || ft_strnstr("ss", sort, 2))
+	// 	ft_sort_swap(stack_a);
 	// if (ft_strnstr("sb", sort, 2) || ft_strnstr("ss", sort, 2))
 	// 	ft_sort_swap(stack_b);
-	if (ft_strnstr("pa", sort, 2))
+	if (ft_strnstr("sa", sort, 2))
+		ft_sort_swap(stack_a);
+	else if (ft_strnstr("sb", sort, 2))
+		ft_sort_swap(stack_b);
+	else if (ft_strnstr("ss", sort, 2))
+	{
+		ft_sort_swap(stack_a);
+		ft_sort_swap(stack_b);
+	}
+	else if (ft_strnstr("pa", sort, 2))
 		ft_sort_push(stack_b, stack_a);
-	if (ft_strnstr("pb", sort, 2))
+	else if (ft_strnstr("pb", sort, 2))
 		ft_sort_push(stack_a, stack_b);
-	if (ft_strnstr("ra", sort, 2) || ft_strnstr("rr", sort, 2))
+	else if (ft_strnstr("ra", sort, 2))
 		ft_sort_rotate(stack_a);
 	// ft_putlst(*stack_a);
 	// ft_putchar_fd('\n', 1);
-	// if (ft_strnstr("rb", sort, 2) || ft_strnstr("rr", sort, 2))
-	// 	ft_sort_rotate(stack_b);
+	else if (ft_strnstr("rb", sort, 2))
+		ft_sort_rotate(stack_b);
+	else if (ft_strnstr("rr", sort, 2))
+	{
+		ft_sort_rotate(stack_a);
+		ft_sort_rotate(stack_b);
+	}
 	else if (ft_strnstr("rra", sort, 3))
 		ft_sort_rotate_rev(stack_a);
 	else if (ft_strnstr("rrb", sort, 3))
