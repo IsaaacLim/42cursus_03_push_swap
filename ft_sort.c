@@ -80,8 +80,6 @@ void	ft_sort(char *sort, t_list **stack_a, t_list **stack_b)
 		ft_sort_push(stack_a, stack_b);
 	else if (ft_strnstr("ra", sort, 2))
 		ft_sort_rotate(stack_a);
-	// ft_putlst(*stack_a);
-	// ft_putchar_fd('\n', 1);
 	else if (ft_strnstr("rb", sort, 2))
 		ft_sort_rotate(stack_b);
 	else if (ft_strnstr("rr", sort, 2))
@@ -98,8 +96,6 @@ void	ft_sort(char *sort, t_list **stack_a, t_list **stack_b)
 		ft_sort_rotate_rev(stack_a);
 		ft_sort_rotate_rev(stack_b);
 	}
-	// ft_putlst(*stack_a);
-	// ft_putchar_fd('\n', 1);
 	ft_putstr_fd(sort, 1);
 	ft_putchar_fd('\n', 1);
 }
