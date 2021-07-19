@@ -87,17 +87,6 @@ static void	ft_substitudeNum(t_list **stack_a)
 	free(array);
 }
 
-/*
-** Radix Sort with base 2
-**	Mod: stack_b numbers that are going to be pushed back will remain there
-**	1. Substitude numbers in stack with 0 -> Max_Number_Count
-**	2. Find the number of bits of the biggest number (the list size - 1)
-**	3. Stack_a: Push numbers with bit '0' to stack_b at nth position
-**	4. Stack_b: Push numbers with bit '1' to stack_a at nth + 1 position
-**	5. Repeat Steps 3&4 while shifting the nth position to the left
-**		until the max number of bits (biggest number)
-**	6. Push all numbers from stack_b to stack_a
-*/
 static void	ft_push_stack(t_list **stack_a, t_list **stack_b, int i, char lst)
 {
 	int	lst_size;
@@ -127,6 +116,17 @@ static void	ft_push_stack(t_list **stack_a, t_list **stack_b, int i, char lst)
 	}
 }
 
+/*
+** Radix Sort with base 2 (If numbers given >= 6)
+**	Mod: stack_b numbers that are going to be pushed back will remain there
+**	1. Substitude numbers in stack with 0 -> Max_Number_Count
+**	2. Find the number of bits of the biggest number (the list size - 1)
+**	3. Stack_a: Push numbers with bit '0' to stack_b at nth position
+**	4. Stack_b: Push numbers with bit '1' to stack_a at nth + 1 position
+**	5. Repeat Steps 3&4 while shifting the nth position to the left
+**		until the max number of bits (biggest number)
+**	6. Push all numbers from stack_b to stack_a
+*/
 void	ft_sort_radix(t_list **stack_a, t_list **stack_b)
 {
 	int	max_num;
