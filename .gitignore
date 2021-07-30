@@ -3,3 +3,6 @@ libft.h.gch
 *.o
 *.a
 push_swap
+checker_sample
+script.sh
+checker
