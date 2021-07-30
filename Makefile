@@ -1,9 +1,15 @@
-NAME		=	push_swap
+PUSH_SWAP	=	push_swap
 
-SRCS		=	algorithms.c push_swap.c eval_lst.c ft_sort.c ft_quicksort.c\
+SRCS_DIR	=	./sources/
+SRCS_COM_LST=	algorithms.c eval_lst.c ft_sort.c ft_quicksort.c\
 				algo_utils.c
+SRCS_PS_LST	=	push_swap.c
 
-OBJS		=	$(SRCS:.c=.o)
+SRCS_COM	=	$(addprefix $(SRCS_DIR), $(SRCS_COM_LST))
+SRCS_PS		=	$(addprefix $(SRCS_DIR), $(SRCS_PS_LST))
+
+OBJS_COM	=	$(SRCS_COM:.c=.o)
+OBJS_PS		=	$(SRCS_PS:.c=.o)
 
 HDRS_DIR	=	./includes/
 HDRS_LST	=	push_swap.h
@@ -18,24 +24,26 @@ INCLUDES	=	-I $(HDRS_DIR) -I $(LIBFT_HDRS)
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -g
 
-all : $(NAME)
+all : $(PUSH_SWAP)
 
-$(NAME) : $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $@
+$(PUSH_SWAP) : $(LIBFT) $(OBJS_COM) $(OBJS_PS)
+	$(CC) $(CFLAGS) $(OBJS_PS) $(OBJS_COM) $(LIBFT) -o $@
 
-%.o : %.c $(HDRS)
+$(SRCS_DIR)%.o : $(SRCS_DIR)%.c $(HDRS)
 	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
+checker: $()
+
 clean:
 	make clean -C $(LIBFT_DIR)
-	rm -f $(OBJS)
+	rm -f $(OBJS_COM) $(OBJS_PS)
 
 fclean: clean
 	make fclean -C $(LIBFT_DIR)
-	rm -f $(NAME)
+	rm -f $(PUSH_SWAP)
 
 re:	fclean all
 
