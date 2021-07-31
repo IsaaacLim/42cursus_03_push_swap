@@ -61,6 +61,7 @@ void	ft_sort_swap(t_list **lst)
 
 void	ft_sort(char *sort, t_list **stack_a, t_list **stack_b)
 {
+	// switch to strncnmp
 	// if (ft_strnstr("sa", sort, 2) || ft_strnstr("ss", sort, 2))
 	// 	ft_sort_swap(stack_a);
 	// if (ft_strnstr("sb", sort, 2) || ft_strnstr("ss", sort, 2))
