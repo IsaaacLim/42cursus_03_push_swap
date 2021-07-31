@@ -1,6 +1,9 @@
 #include "push_swap.h"
 #include "get_next_line.h"
 
+/*
+**ft_strncmp: if string exist, return == 0, else > 0
+*/
 static bool	ft_modifyList(char *line, t_list **stack_a, t_list **stack_b)
 {
 	if (!(ft_strnstr("ssasbpapbrrrarrb", line, 16)))
@@ -13,9 +16,9 @@ static bool	ft_modifyList(char *line, t_list **stack_a, t_list **stack_b)
 		ft_sort_push(stack_b, stack_a);
 	if (!(ft_strncmp("pb", line, 2)))
 		ft_sort_push(stack_a, stack_b);
-	if (!(ft_strncmp("ra", line, 2) && ft_strncmp("rr", line, 2)))
+	if (!(ft_strncmp("ra", line, 2) && ft_strncmp("rr", line, 3)))
 		ft_sort_rotate(stack_a);
-	if (!(ft_strncmp("rb", line, 2) && ft_strncmp("rr", line, 2)))
+	if (!(ft_strncmp("rb", line, 2) && ft_strncmp("rr", line, 3)))
 		ft_sort_rotate(stack_b);
 	if (!(ft_strncmp("rra", line, 3) && ft_strncmp("rrr", line, 3)))
 		ft_sort_rotate_rev(stack_a);
@@ -46,9 +49,9 @@ int	main(int argc, char **argv)
 	if (error)
 		ft_putstr_fd("Error\n", 2);
 	else if (ft_is_sorted(stack_a) && !stack_b)
-		ft_putstr_fd("OK\n", 2);
+		ft_putstr_fd("OK\n", 1);
 	else
-		ft_putstr_fd("KO\n", 2);
+		ft_putstr_fd("KO\n", 1);
 	ft_lstclear(&stack_a);
 	ft_lstclear(&stack_b);
 }

@@ -59,44 +59,27 @@ void	ft_sort_swap(t_list **lst)
 	*lst = second;
 }
 
+/*
+**ft_strncmp: if string exist, return == 0, else > 0
+*/
 void	ft_sort(char *sort, t_list **stack_a, t_list **stack_b)
 {
-	// switch to strncnmp
-	// if (ft_strnstr("sa", sort, 2) || ft_strnstr("ss", sort, 2))
-	// 	ft_sort_swap(stack_a);
-	// if (ft_strnstr("sb", sort, 2) || ft_strnstr("ss", sort, 2))
-	// 	ft_sort_swap(stack_b);
-	if (ft_strnstr("sa", sort, 2))
+	if (!(ft_strncmp("sa", sort, 2) && ft_strncmp("ss", sort, 2)))
 		ft_sort_swap(stack_a);
-	else if (ft_strnstr("sb", sort, 2))
+	if (!(ft_strncmp("sb", sort, 2) && ft_strncmp("ss", sort, 2)))
 		ft_sort_swap(stack_b);
-	else if (ft_strnstr("ss", sort, 2))
-	{
-		ft_sort_swap(stack_a);
-		ft_sort_swap(stack_b);
-	}
-	else if (ft_strnstr("pa", sort, 2))
+	if (!(ft_strncmp("pa", sort, 2)))
 		ft_sort_push(stack_b, stack_a);
-	else if (ft_strnstr("pb", sort, 2))
+	if (!(ft_strncmp("pb", sort, 2)))
 		ft_sort_push(stack_a, stack_b);
-	else if (ft_strnstr("ra", sort, 2))
+	if (!(ft_strncmp("ra", sort, 2) && ft_strncmp("rr", sort, 3)))
 		ft_sort_rotate(stack_a);
-	else if (ft_strnstr("rb", sort, 2))
+	if (!(ft_strncmp("rb", sort, 2) && ft_strncmp("rr", sort, 3)))
 		ft_sort_rotate(stack_b);
-	else if (ft_strnstr("rr", sort, 2))
-	{
-		ft_sort_rotate(stack_a);
-		ft_sort_rotate(stack_b);
-	}
-	else if (ft_strnstr("rra", sort, 3))
+	if (!(ft_strncmp("rra", sort, 3) && ft_strncmp("rrr", sort, 3)))
 		ft_sort_rotate_rev(stack_a);
-	else if (ft_strnstr("rrb", sort, 3))
+	if (!(ft_strncmp("rrb", sort, 3) && ft_strncmp("rrr", sort, 3)))
 		ft_sort_rotate_rev(stack_b);
-	else if (ft_strnstr("rrr", sort, 3))
-	{
-		ft_sort_rotate_rev(stack_a);
-		ft_sort_rotate_rev(stack_b);
-	}
 	ft_putstr_fd(sort, 1);
 	ft_putchar_fd('\n', 1);
 }
