@@ -29,13 +29,13 @@ CFLAGS		=	-Wall -Werror -Wextra -g
 
 all : $(PUSH_SWAP) $(CHECKER)
 
-$(PUSH_SWAP) : $(LIBFT) $(OBJS_COM) $(OBJS_PS)
-	@$(CC) $(CFLAGS) $(OBJS_PS) $(OBJS_COM) $(LIBFT) -o $@
+$(PUSH_SWAP) : $(OBJS_PS) $(OBJS_COM) $(LIBFT)
+	@$(CC) $(CFLAGS) $^ -o $@
 	@echo " $(YELLOW)$@ $(GREEN)objects files created"
 	@echo "$(BLUE)$@$(GREEN) created$(RESET)"
 
-$(CHECKER) : $(LIBFT) $(OBJS_COM) $(OBJS_CK)
-	@$(CC) $(CFLAGS) $(OBJS_CK) $(OBJS_COM) $(LIBFT) -o $@
+$(CHECKER) : $(OBJS_CK) $(OBJS_COM) $(LIBFT)
+	@$(CC) $(CFLAGS) $^ -o $@
 	@echo " $(YELLOW)$@ $(GREEN)objects files created"
 	@echo "$(BLUE)$@$(GREEN) created$(RESET)"
 
