@@ -3,7 +3,6 @@
 
 # include "libft.h"
 # include <stdbool.h>
-# include <stdio.h> //REMOVE
 
 //algo_utils.c
 int		ft_onTopOf_ascending(t_list *lst_to, int num_from);
