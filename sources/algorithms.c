@@ -60,70 +60,13 @@ void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 }
 
 /*
-** Substitude numbers in stack
-**	Used ft_quicksort to get the order (ascending) of each number
-**	Replaced them with 0 -> Max_Number_Count
-*/
-static void	ft_substitudeNum(t_list **stack_a)
-{
-	t_list	*head;
-	int		*array;
-	int		lst_size;
-	int		i;
-
-	array = ft_copyStack(*stack_a);
-	lst_size = ft_lstsize(*stack_a);
-	ft_quicksort(array, 0, lst_size - 1);
-	head = *stack_a;
-	while (*stack_a)
-	{
-		i = 0;
-		while (i < lst_size && (*stack_a)->num != array[i])
-			i++;
-		(*stack_a)->num = i;
-		*stack_a = (*stack_a)->next;
-	}
-	*stack_a = head;
-	free(array);
-}
-
-static void	ft_push_stack(t_list **stack_a, t_list **stack_b, int i, char lst)
-{
-	int	lst_size;
-	int	j;
-
-	if (lst == 'a')
-		lst_size = ft_lstsize(*stack_a);
-	else if (lst == 'b')
-		lst_size = ft_lstsize(*stack_b);
-	j = -1;
-	while (++j < lst_size)
-	{
-		if (lst == 'a')
-		{
-			if ((((*stack_a)->num >> i) & 1) == 0)
-				ft_sort("pb", stack_a, stack_b);
-			else
-				ft_sort("ra", stack_a, stack_b);
-		}
-		else if (lst == 'b')
-		{
-			if ((((*stack_b)->num >> (i + 1)) & 1) == 1)
-				ft_sort("pa", stack_a, stack_b);
-			else
-				ft_sort("rb", stack_a, stack_b);
-		}
-	}
-}
-
-/*
 ** Radix Sort with base 2 (If numbers given >= 6)
 **	Mod: stack_b numbers that are going to be pushed back will remain there
 **	1. Substitude numbers in stack with 0 -> Max_Number_Count
 **	2. Find the number of bits of the biggest number (the list size - 1)
-**	3. Stack_a: Push numbers with bit '0' to stack_b at nth position
-**	4. Stack_b: Push numbers with bit '1' to stack_a at nth + 1 position
-**	5. Repeat Steps 3&4 while shifting the nth position to the left
+**	3. Stack_a: Push numbers with bit '0' to stack_b at bit's nth position
+**	4. Stack_b: Push numbers with bit '1' to stack_a at bit's nth + 1 position
+**	5. Repeat Steps 3&4 while shifting the bit's nth position to the left
 **		until the max number of bits (biggest number)
 **	6. Push all numbers from stack_b to stack_a
 */
@@ -141,9 +84,9 @@ void	ft_sort_radix(t_list **stack_a, t_list **stack_b)
 	i = 0;
 	while (i < max_bits)
 	{
-		ft_push_stack(stack_a, stack_b, i, 'a');
+		ft_pushStack(stack_a, stack_b, i, 'a');
 		if (i + 1 != max_bits)
-			ft_push_stack(stack_a, stack_b, i, 'b');
+			ft_pushStack(stack_a, stack_b, i, 'b');
 		i++;
 	}
 	while (*stack_b)

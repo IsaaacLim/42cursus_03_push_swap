@@ -2,9 +2,9 @@ PUSH_SWAP	=	push_swap
 CHECKER		=	checker
 
 SRCS_DIR	=	./sources/
-SRCS_COM_LST=	algorithms.c eval_lst.c ft_sort.c ft_quicksort.c\
-				algo_utils.c stack_utils.c
-SRCS_PS_LST	=	push_swap.c
+SRCS_COM_LST=	 eval_lst.c ft_sort.c ft_quicksort.c\
+				 stack_utils.c
+SRCS_PS_LST	=	algo_utils.c	algorithms.c	push_swap.c 
 SRCS_CK_LST	=	checker.c
 
 SRCS_COM	=	$(addprefix $(SRCS_DIR), $(SRCS_COM_LST))

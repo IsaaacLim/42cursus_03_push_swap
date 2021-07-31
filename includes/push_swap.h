@@ -6,8 +6,9 @@
 # include <stdio.h> //REMOVE
 
 //algo_utils.c
-int ft_onTopOf_ascending(t_list *lst_to, int num_from);
-int	*ft_copyStack(t_list *lst);
+int		ft_onTopOf_ascending(t_list *lst_to, int num_from);
+void	ft_substitudeNum(t_list **stack_a);
+void	ft_pushStack(t_list **stack_a, t_list **stack_b, int i, char lst);
 
 //algorithms.c
 void	ft_sort_xs(t_list **stack_a, t_list **stack_b);
