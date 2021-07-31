@@ -2,6 +2,9 @@
 #include "libft.h"
 #include "limits.h"
 
+/*
+** Used to print stack to stdout for verification
+*/
 void	ft_putlst(t_list *lst)
 {
 	while (lst)

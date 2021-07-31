@@ -20,7 +20,7 @@ bool	ft_is_sorted(t_list *lst)
 */
 int	ft_smallest(t_list *lst)
 {
-	int smallest;
+	int	smallest;
 
 	smallest = lst->num;
 	lst = lst->next;
@@ -38,8 +38,8 @@ int	ft_smallest(t_list *lst)
 */
 int	ft_smallest_lst_pos(t_list *lst)
 {
-	int lst_pos;
-	int smallest;
+	int	lst_pos;
+	int	smallest;
 	int	smallest_lst_pos;
 
 	smallest = lst->num;
@@ -51,7 +51,7 @@ int	ft_smallest_lst_pos(t_list *lst)
 		if (lst->num < smallest)
 		{
 			smallest = lst->num;
-			smallest_lst_pos = lst_pos; 
+			smallest_lst_pos = lst_pos;
 		}
 		lst = lst->next;
 		lst_pos++;
@@ -65,8 +65,8 @@ int	ft_smallest_lst_pos(t_list *lst)
 */
 int	ft_middle_lst_pos(t_list *stack_a)
 {
-	int lst_size;
-	int lst_mid;
+	int	lst_size;
+	int	lst_mid;
 
 	lst_size = ft_lstsize(stack_a);
 	lst_mid = lst_size / 2;
@@ -80,9 +80,9 @@ int	ft_middle_lst_pos(t_list *stack_a)
 */
 int	ft_largest_lst_pos(t_list *lst)
 {
-	int lst_pos;
-	int largest;
-	int largest_lst_pos;
+	int	lst_pos;
+	int	largest;
+	int	largest_lst_pos;
 
 	largest = lst->num;
 	largest_lst_pos = 1;
@@ -93,7 +93,7 @@ int	ft_largest_lst_pos(t_list *lst)
 		if (lst->num > largest)
 		{
 			largest = lst->num;
-			largest_lst_pos = lst_pos; 
+			largest_lst_pos = lst_pos;
 		}
 		lst = lst->next;
 		lst_pos++;

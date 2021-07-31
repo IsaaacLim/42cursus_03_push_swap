@@ -1,5 +1,4 @@
 #include "push_swap.h"
-#include "libft.h" //remove
 
 int	main(int argc, char **argv)
 {
@@ -23,9 +22,3 @@ int	main(int argc, char **argv)
 	ft_lstclear(&stack_a);
 	ft_lstclear(&stack_b);
 }
-
-	// ft_putstr_fd("Stack_a:\t", 1);
-	// ft_putlst(stack_a);
-	// ft_putstr_fd("\nStack_b:\t", 1);
-	// ft_putlst(stack_b);
-	// ft_putchar_fd('\n', 1);

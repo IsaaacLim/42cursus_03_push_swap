@@ -6,7 +6,7 @@
 */
 int	*ft_copyStack(t_list *lst)
 {
-	int *array;
+	int	*array;
 	int	lst_size;
 	int	i;
 
@@ -39,7 +39,7 @@ int	ft_onTopOf_ascending(t_list *lst_to, int num_from)
 	int		smallest;
 	int		stack_ori;
 	t_list	*temp;
-	
+
 	stack_ori = lst_to->num;
 	smallest = ft_smallest(lst_to);
 	while (lst_to->num != smallest)
