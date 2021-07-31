@@ -3,7 +3,7 @@ CHECKER		=	checker
 
 SRCS_DIR	=	./sources/
 SRCS_COM_LST=	algorithms.c eval_lst.c ft_sort.c ft_quicksort.c\
-				algo_utils.c
+				algo_utils.c stack_utils.c
 SRCS_PS_LST	=	push_swap.c
 SRCS_CK_LST	=	checker.c
 
