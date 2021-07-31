@@ -31,7 +31,8 @@ void	ft_sort_rotate(t_list **lst);
 void	ft_sort_rotate_rev(t_list **lst);
 void	ft_sort_swap(t_list **lst);
 
-//extra
+//stack_utils.c
+void	ft_createStack(t_list **stack_a, char **argv);
 void	ft_putlst(t_list *lst);
 
 #endif
