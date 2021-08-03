@@ -21,7 +21,7 @@ HDRS		=	$(addprefix $(HDRS_DIR), $(HRDS_LST))
 INCLUDES	=	-I $(HDRS_DIR)
 
 CC		=	gcc
-CFLAGS	=	-c -Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror -g
 
 all:		$(NAME) 
 
