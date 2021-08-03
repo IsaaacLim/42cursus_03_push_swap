@@ -3,10 +3,11 @@ NAME	=	libft.a
 SRCS_DIR	=	./sources/
 SRCS_LST	=	ft_atoi.c			ft_bzero.c			ft_calloc.c			\
 				ft_lstadd_back.c	ft_lstadd_front.c	ft_lstlast.c 		\
-				ft_lstsize.c 		ft_putchar_fd.c		ft_putnbr_fd.c 		\
-				ft_putstr_fd.c 		ft_strchr.c 		ft_strdup.c			\
-				ft_strjoin.c		ft_strlen.c 		ft_strncmp.c		\
-				ft_strnstr.c		ft_substr.c
+				ft_lstsize.c 		ft_memcpy.c			ft_putchar_fd.c		\
+				ft_putnbr_fd.c 		ft_putstr_fd.c 		ft_split.c			\
+				ft_strchr.c 		ft_strdup.c			ft_strjoin.c		\
+				ft_strlen.c 		ft_strncmp.c		ft_strnstr.c		\
+				ft_substr.c
 SRCS_B_LST	=	ft_lstclear_bonus.c ft_lstdelone_bonus.c ft_lstnew_bonus.c
 GNL_LST		=	get_next_line.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LST) $(SRCS_B_LST) $(GNL_LST))
