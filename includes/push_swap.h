@@ -32,7 +32,7 @@ void	ft_sort_rotate_rev(t_list **lst);
 void	ft_sort_swap(t_list **lst);
 
 //stack_utils.c
-void	ft_createStack(t_list **stack_a, char **argv);
+void	ft_createStack(t_list **stack_a, int argc, char **argv);
 void	ft_putlst(t_list *lst);
 
 #endif

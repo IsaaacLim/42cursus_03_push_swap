@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 		return (0);
 	stack_a = NULL;
 	stack_b = NULL;
-	ft_createStack(&stack_a, argv);
+	ft_createStack(&stack_a, argc, argv);
 	while (get_next_line(0, &line))
 	{
 		if (!(ft_modifyList(line, &stack_a, &stack_b)))

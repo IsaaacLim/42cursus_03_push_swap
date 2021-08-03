@@ -43,21 +43,69 @@ static bool	ft_check_input(char *argv, t_list *lst)
 		return (true);
 }
 
-void	ft_createStack(t_list **stack_a, char **argv)
+static void	ft_clearArray(char **arr)
 {
-	t_list	*new;
-	int		i;
+	int	i;
 
 	i = 0;
-	while (argv[++i])
+	while (arr[i])
 	{
-		if (!(ft_check_input(argv[i], *stack_a)))
+		ft_bzero(arr[i], ft_strlen(arr[i]));
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
+static char	**ft_copyArgv(int argc, char **argv)
+{
+	char	**arr;
+	int		i;
+
+	arr = (char **)malloc((argc - 1) * sizeof(char *) + 1);
+	if (!arr)
+	{
+		ft_putstr_fd("Error: Malloc** @ ft_copyArgv\n", 2);
+		exit (0);
+	}
+	i = 0;
+	while (i <= argc - 2)
+	{
+		arr[i] = ft_strdup(argv[i + 1]);
+		if (!arr[i])
+		{
+			ft_clearArray(arr);
+			ft_putstr_fd("Error: Malloc* @ ft_copyArgv\n", 2);
+			exit (0);
+		}
+		i++;
+	}
+	arr[i] = NULL;
+	return (arr);
+}
+
+void	ft_createStack(t_list **stack_a, int argc, char **argv)
+{
+	t_list	*new;
+	char	**arr;
+	int		i;
+
+	if (argc == 2)
+		arr = ft_split(argv[1], ' ');
+	else
+		arr = ft_copyArgv(argc, argv);
+	i = -1;
+	while (arr[++i])
+	{
+		if (!(ft_check_input(arr[i], *stack_a)))
 		{
 			ft_putstr_fd("Error\n", 2);
 			ft_lstclear(stack_a);
+			ft_clearArray(arr);
 			exit (0);
 		}
-		new = ft_lstnew(ft_atoi(argv[i]));
+		new = ft_lstnew(ft_atoi(arr[i]));
 		ft_lstadd_back(stack_a, new);
 	}
+	ft_clearArray(arr);
 }

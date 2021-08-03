@@ -9,7 +9,7 @@ int	main(int argc, char **argv)
 		return (0);
 	stack_a = NULL;
 	stack_b = NULL;
-	ft_createStack(&stack_a, argv);
+	ft_createStack(&stack_a, argc, argv);
 	if (!(ft_is_sorted(stack_a)))
 	{
 		if (ft_lstsize(stack_a) <= 3)
