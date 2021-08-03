@@ -96,7 +96,7 @@ void	ft_pushStack(t_list **stack_a, t_list **stack_b, int i, char lst)
 
 	if (lst == 'a')
 		lst_size = ft_lstsize(*stack_a);
-	else if (lst == 'b')
+	else
 		lst_size = ft_lstsize(*stack_b);
 	j = -1;
 	while (++j < lst_size)
