@@ -86,8 +86,8 @@ void	ft_substitudeNum(t_list **stack_a)
 
 /*
 ** Used by ft_sort_radix
-** 	Stack_a: Push numbers with bit '0' to stack_b at bit's nth position
-** 	Stack_b: Push numbers with bit '1' to stack_a at bit's nth + 1 position
+** 	Stack_a: Push numbers with bit '0' at bit's nth position to stack_b 
+** 	Stack_b: Push numbers with bit '1' at bit's nth + 1 position to stack_a
 */
 void	ft_pushStack(t_list **stack_a, t_list **stack_b, int i, char lst)
 {

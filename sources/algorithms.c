@@ -64,8 +64,8 @@ void	ft_sort_s(t_list **stack_a, t_list **stack_b)
 **	Mod: stack_b numbers that are going to be pushed back will remain there
 **	1. Substitude numbers in stack with 0 -> Max_Number_Count
 **	2. Find the number of bits of the biggest number (the list size - 1)
-**	3. Stack_a: Push numbers with bit '0' to stack_b at bit's nth position
-**	4. Stack_b: Push numbers with bit '1' to stack_a at bit's nth + 1 position
+**	3. Stack_a: Push numbers with bit '0' at bit's nth position to stack_b
+**	4. Stack_b: Push numbers with bit '1' at bit's nth + 1 position to stack_a
 **	5. Repeat Steps 3&4 while shifting the bit's nth position to the left
 **		until the max number of bits (biggest number)
 **	6. Push all numbers from stack_b to stack_a
