@@ -1,6 +1,6 @@
 # 42cursus_03_push_swap 🃏
 
-Grade: 109/100
+## Grades: 109/100
 
 Method used: [Radix sort](https://medium.com/nerd-for-tech/push-swap-tutorial-fa746e6aba1e)
 
